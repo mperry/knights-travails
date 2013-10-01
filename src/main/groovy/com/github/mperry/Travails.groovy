@@ -25,10 +25,14 @@ class Travails {
 
 	void go() {
 		def p = ends()
-		def start = PositionReader.read(p._1())
-		def end = PositionReader.read(p._2())
-		def oList = go(start, end)
-		println("start: $start end: $end path: $oList")
+		def oList = go(p._1(), p._2())
+		println("start: ${p._1()} end: ${p._2()} path: $oList")
+	}
+
+	Option<List<Position>> go(String p1, String p2) {
+		def start = PositionReader.read(p1)
+		def end = PositionReader.read(p2)
+		go(start, end)
 	}
 
 	Option<List<Position>> go(Option<Position> start, Option<Position> end) {
@@ -47,7 +51,7 @@ class Travails {
 	}
 
 	Path breadthFirst(List<Path> paths, Position end) {
-		def done = paths.filter {Path p -> p.current == end } as List<Path>
+		def done = paths.filter { Path p -> p.current == end } as List<Path>
 		if (done.size() > 0) {
 			done.head()
 		} else {
