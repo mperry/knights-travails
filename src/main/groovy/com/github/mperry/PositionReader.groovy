@@ -1,5 +1,6 @@
 package com.github.mperry
 
+import fj.data.Option
 import groovy.transform.TypeChecked
 
 /**
@@ -15,10 +16,10 @@ class PositionReader {
 	static final int COLUMN_INDEX = 0
 	static final int ROW_INDEX = 1
 
-	static Position read(String s) {
+	static Option<Position> read(String s) {
 		def col = stringAt(s, COLUMN_INDEX)
 		def row = stringAt(s, ROW_INDEX).toInteger()
-		new Position(row, col)
+		Position.create(row, col)
 	}
 
 	static String stringAt(String s, int i) {

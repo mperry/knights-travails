@@ -1,5 +1,8 @@
 package com.github.mperry
 
+import fj.P
+import fj.P2
+import fj.data.Option
 import groovy.transform.TypeChecked
 
 /**
@@ -12,21 +15,31 @@ import groovy.transform.TypeChecked
 @TypeChecked
 class Travails {
 
-
 	static void main(def args) {
 		new Travails().go()
 	}
 
-
+	P2<String, String> ends() {
+		P.p("A8", "B7")
+	}
 
 	void go() {
-		def start = PositionReader.read("A8")
-		def end = PositionReader.read("B7")
-		def path1 = new Path(start, [])
-		def p2 = go(path1, end)
-		def p3 = p2.previous.tail() + p2.current
-		println("start: $start end: $end path: $p3")
-		int z = 0
+		def p = ends()
+		def start = PositionReader.read(p._1())
+		def end = PositionReader.read(p._2())
+		def oList = go(start, end)
+		println("start: $start end: $end path: $oList")
+	}
+
+	Option<List<Position>> go(Option<Position> start, Option<Position> end) {
+		def oList = start.bind { Position startP ->
+			end.map { Position endP ->
+				def p2 = go(new Path(startP, []), endP)
+				def p3 = p2.previous.tail() + p2.current
+				p3
+			}
+		}
+		oList
 	}
 
 	Path go(Path p, Position end) {
@@ -46,7 +59,5 @@ class Travails {
 			breadthFirst(p2, end)
 		}
 	}
-
-
 
 }

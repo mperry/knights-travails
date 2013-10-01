@@ -25,38 +25,37 @@ class KnightMover {
 	static List<Position> validNextMoves(Position p) {
 		def list = nextMoves(p)
 		list.collect { Option<Position> op -> op.some() }
-
 	}
 
 	static Option<Position> ne(Position p) {
-		Position.create(p.column + 1, p.row + 2)
+		Position.create(p.row + 2, p.column + 1)
 	}
 
 	static Option<Position> nw(Position p) {
-		Position.create(p.column - 1, p.row + 2)
+		Position.create(p.row + 2, p.column - 1)
 	}
 
 	static Option<Position> en(Position p) {
-		Position.create(p.column + 2, p.row + 1)
+		Position.create(p.row + 1, p.column + 2)
 	}
 
 	static Option<Position> es(Position p) {
-		Position.create(p.column + 2, p.row - 1)
+		Position.create(p.row - 1, p.column + 2)
 	}
 
 	static Option<Position> se(Position p) {
-		Position.create(p.column + 1, p.row - 2)
+		Position.create(p.row - 2, p.column + 1)
 	}
 
 	static Option<Position> sw(Position p) {
-		Position.create(p.column - 1, p.row - 2)
+		Position.create(p.row - 2, p.column - 1)
 	}
 
 	static Option<Position> ws(Position p) {
-		Position.create(p.column - 2, p.row - 1)
+		Position.create(p.row - 1, p.column - 2)
 	}
 
 	static Option<Position> wn(Position p) {
-		Position.create(p.column - 2, p.row + 1)
+		Position.create(p.row + 1, p.column - 2)
 	}
 }
